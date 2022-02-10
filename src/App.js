@@ -9,8 +9,15 @@ function App() {
     if (toDo === "") {
       return; //kill the function
     }
-    setToDos((currentArray) => [toDo, ...currentArray]);
+    setToDos((currentArray) => [...currentArray, toDo]);
     setToDo(""); //clear input value
+  };
+  // const onDelete = (event) => {
+  //   const li = event.target.parentElement;
+  //   li.remove();
+  // };
+  const onDelete = (selectedIndex) => {
+    setToDos(toDos.filter((item, index) => index !== selectedIndex));
   };
   return (
     <div>
@@ -24,6 +31,15 @@ function App() {
         />
         <button>Add To Do</button>
       </form>
+      <hr />
+      <ul>
+        {toDos.map((item, index) => (
+          <li key={index}>
+            {item}
+            <button onClick={() => onDelete(index)}>❌</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
